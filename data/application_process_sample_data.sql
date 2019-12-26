@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS applicants;
 DROP TABLE IF EXISTS mentors;
+SET CLIENT_ENCODING TO 'utf8';
 
 CREATE TABLE applicants (
     id SERIAL PRIMARY KEY,
