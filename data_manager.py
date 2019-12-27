@@ -13,24 +13,24 @@ def get_mentor_names_by_first_name(cursor, first_name):
 
 
 @database_common.connection_handler
-def get_mentors_names(cursor):
+def get_all_first_name_and_last_name(cursor):
     cursor.execute(
         """
                     SELECT first_name, last_name FROM mentors;
                     """
     )
-
     first_and_last_name = cursor.fetchall()
     return first_and_last_name
 
 
 @database_common.connection_handler
-def get_nickname_miskolc(cursor):
+def get_mentors_nicknames_by_city(cursor, city):
     cursor.execute("""SELECT nick_name FROM mentors
-                      WHERE city = 'Miskolc';""")
-
-    mentors_nickname = cursor.fetchall()
-    return mentors_nickname
+                      WHERE city = %(city)s ORDER BY nick_name;
+                   """,
+                   {'city': city})
+    mentors_nicknames = cursor.fetchall()
+    return mentors_nicknames
 
 
 @database_common.connection_handler
@@ -76,3 +76,16 @@ def get_new_applicant_details(cursor):
 
     details = cursor.fetchall()
     return details
+
+
+@database_common.connection_handler
+def update_phone_number(cursor):
+    cursor.execute(
+        """
+        UPDATE applicants
+        SET phone_number = '003670/223-7459'
+        WHERE first_name = 'Jemima' AND last_name = 'Foreman';
+        """
+    )
+
+
