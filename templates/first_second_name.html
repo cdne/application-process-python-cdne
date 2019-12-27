@@ -1,0 +1,7 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% for mentor in first_and_last_name %}
+        {{ mentor.first_name + " " + mentor.last_name }}<br>
+    {% endfor %}
+{% endblock %}
