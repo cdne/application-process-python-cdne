@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Remove applicants by domain</h1>
+    <form action="/delete-applicant-by-email" method="post">
+
+        <label for="domain">Enter domain:</label>
+        <input type="text" name="domain"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <br><Br>
+    <h2>You Removed</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Phone Number</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for applicant in deleted_applicants %}
+                <tr>
+                <td>{{ applicant.full_name }}</td>
+                <td>{{ applicant.phone_number }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
+{% endblock %}
+
+
