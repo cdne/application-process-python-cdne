@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <form action="/update-phone-number" method="post">
+        <label for="first-name">Enter applicant first name:</label>
+        <input type="text" name="first-name"><br>
+        <label for="first-name">Enter applicant last name:</label>
+        <input type="text" name="last-name"><br>
+        <label for="first-name">Enter applicant new phone number:</label>
+        <input type="text" name="phone-number"><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Phone Number</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for applicant in details %}
+                <tr>
+                <td>{{ applicant.full_name }}</td>
+                <td>{{ applicant.phone_number }}</td>
+            {% endfor %}
+
+
+        </tr>
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
+{% endblock %}
+
+
