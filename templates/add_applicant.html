@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Add applicant</h1>
+    <form action="" method="post">
+        <label for="first-name">First Name:</label>
+        <input type="text" name="first-name"><br>
+        <label for="last-name">Last Name:</label>
+        <input type="text" name="last-name"><br>
+        <label for="phone-number">Phone Number:</label>
+        <input type="text" name="phone-number"><br>
+        <label for="email">Email:</label>
+        <input type="text" name="email"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <br><br>
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for applicant in applicant_details %}
+                <tr>
+                <td>{{ applicant.first_name }}</td>
+                <td>{{ applicant.last_name }}</td>
+                <td>{{ applicant.phone_number }}</td>
+                <td>{{ applicant.email }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
+{% endblock %}
+
+
