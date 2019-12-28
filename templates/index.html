@@ -2,5 +2,14 @@
 
 {% block content %}
     <a href="{{ url_for('mentor_names') }}">Mentor names</a><br>
-    <a href="{{ url_for('all_names' )}}">Query that returns the 2 name columns of the mentors table</a>
+    <a href="{{ url_for('all_names' ) }}">Query that returns the 2 name columns of the mentors table</a><br>
+    <a href="{{ url_for('route_mentors_nicknames' ) }}">Query that returns the nick_name-s of all mentors working at
+        Miskolc</a><br>
+    <a href="{{ url_for('route_applicant_fullname_phonenumber' ) }}">Query that returns the full name and phone number
+        of applicant by first name</a><br>
+    <a href="{{ url_for('route_applicant_fullname_phonenumber_by_email' ) }}">Query that returns the full name and phone
+        number of applicant by email</a><br>
+    <a href="{{ url_for('add_applicant' ) }}">Add applicant</a><br>
+    <a href="{{ url_for('route_update_phone_number' ) }}">Update applicant phone number</a><br>
+    <a href="{{ url_for('route_delete_applicant_by_domain' ) }}">Delete applicants by domain</a><br>
 {% endblock %}
