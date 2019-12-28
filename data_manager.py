@@ -34,58 +34,75 @@ def get_mentors_nicknames_by_city(cursor, city):
 
 
 @database_common.connection_handler
-def get_applicant_details(cursor, student, email):
-    if student == 'Carol' and not None:
-        cursor.execute("""
-                       SELECT first_name || ' ' || last_name AS full_name, phone_number
-                       FROM applicants 
-                       WHERE first_name LIKE '%Carol%';
-                       """)
+def get_applicant_fullname_and_phone_number_by_first_name(cursor, first_name):
+    cursor.execute(
+        """
+        SELECT first_name || ' ' || last_name AS full_name, phone_number
+        FROM applicants
+        WHERE first_name = '{first_name}'
+        """.format(first_name=first_name)
 
-        applicant_details = cursor.fetchall()
-        return applicant_details
-    elif email == '@adipiscingenimmi.edu' and not None:
-        cursor.execute("""
-                       SELECT first_name || ' ' || last_name AS full_name, phone_number
-                       FROM applicants 
-                       WHERE email LIKE '%@adipiscingenimmi.edu';
-                       """)
-
-        applicant_details = cursor.fetchall()
-        return applicant_details
+    )
+    full_name_and_phone_number = cursor.fetchall()
+    return full_name_and_phone_number
 
 
 @database_common.connection_handler
-def add_new_applicant(cursor):
+def get_applicant_fullname_and_phone_number_by_email(cursor, email):
+    cursor.execute(
+        """
+        SELECT first_name || ' ' || last_name AS full_name, phone_number
+        FROM applicants
+        WHERE email LIKE '%{email}'
+        """.format(email=email)
+    )
+    get_full_name_and_phone_number = cursor.fetchall()
+    return get_full_name_and_phone_number
+
+
+@database_common.connection_handler
+def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code):
     cursor.execute(
         """
        INSERT INTO applicants (first_name, last_name, phone_number, email, application_code)
-       VALUES ('Markus', 'Schaffarzyk', '003620/725-2666', 'djnovus@groovecoverage.com', '54823');
-        """
+       VALUES ('{first_name}', '{last_name}', '{phone_number}', '{email}', '{application_code}');
+        """.format(first_name=first_name,
+                   last_name=last_name,
+                   phone_number=phone_number,
+                   email=email,
+                   application_code=application_code)
     )
 
-
 @database_common.connection_handler
-def get_new_applicant_details(cursor):
+def get_applicant_details(cursor, application_code):
     cursor.execute(
         """
         SELECT * FROM applicants
-        WHERE application_code = 54823;
-        """
+        WHERE application_code = '{application_code}';
+        """.format(application_code=application_code)
     )
-
     details = cursor.fetchall()
     return details
 
 
 @database_common.connection_handler
-def update_phone_number(cursor):
+def update_applicant_phone_number(cursor, first_name, last_name, phone_number):
     cursor.execute(
         """
         UPDATE applicants
-        SET phone_number = '003670/223-7459'
-        WHERE first_name = 'Jemima' AND last_name = 'Foreman';
-        """
+        SET phone_number = '{phone_number}'
+        WHERE first_name = '{first_name}' AND last_name = '{last_name}';
+        """.format(phone_number=phone_number,
+                   first_name=first_name,
+                   last_name=last_name,)
     )
 
 
+@database_common.connection_handler
+def remove_applicants_by_domain(cursor, domain):
+    cursor.execute(
+        """
+        DELETE FROM applicants
+        WHERE email LIKE '%{domain}'
+        """.format(domain=domain)
+    )
