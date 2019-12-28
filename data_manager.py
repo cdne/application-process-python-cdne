@@ -1,5 +1,8 @@
 import database_common
+import random
 
+
+random_application_code = random.randrange(100, 50000)
 
 @database_common.connection_handler
 def get_mentor_names_by_first_name(cursor, first_name):
